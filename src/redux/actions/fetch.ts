@@ -19,6 +19,8 @@ export function fetchImageData(page?: number, limit?: number) {
   };
 }
 
+
+
 export function fetchMoreImageData(page?: number, limit?: number) {
   return (dispatch: Dispatch) => {
     dispatch(loading(true));

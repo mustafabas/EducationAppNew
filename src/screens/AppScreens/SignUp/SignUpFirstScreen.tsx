@@ -10,63 +10,75 @@ import { NavigationScreenProp, NavigationState } from "react-navigation";
 import { Formik } from "formik";
 import * as Yup from "yup";
 import Icon from "react-native-vector-icons/SimpleLineIcons";
-import { loginUserService } from "../../../redux/services/user";
+import { controlUsername } from "../../../redux/actions/signupActions";
 import { Input, Button, FloatingLabelInput } from "../../../components";
-import styles from "./styles";
+import styles from "../../AuthScreens/Login/styles";
+import { connect } from "react-redux";
+import { AppState } from '../../../redux/store'
+import { UserState } from '../../../redux/reducers/SignUpReducers'
 
 interface Props {
   navigation: NavigationScreenProp<NavigationState>;
-}
-interface userData {
+  controlUsername : (username : string) => void;
   username: string;
-  password: string;
+  userState : UserState;
 }
+
+
+
+ 
+
+
+
 
 const loginSchema = Yup.object().shape({
   username: Yup.string()
     .matches(/^[a-zA-Z0-9_-]+$/)
     .min(4)
     .max(16)
-    .required(),
-  password: Yup.string()
-    .matches(/^[a-zA-Z]+(\s?[a-zA-z]+)*$/)
-    .min(6)
-    .max(16)
     .required()
+
 });
 
-class Login extends Component<Props, {}> {
-  handleLogin = (values: userData) => {
+class SignUpFirstScreen extends Component<Props, {}> {
+  handleLogin = (username: string) => {
     const { navigation } = this.props;
-    loginUserService(values.username, values.password).then(res => {
-      navigation.navigate("AppStack");
-    });
+    controlUsername(username);
+    navigation.navigate("SignUpSecond");
   };
 
+  componentDidMount(){
+  }
+
   render() {
+
+
     return (
-      <View style={styles.container}>
+      <View style={[styles.container, {justifyContent:'flex-start' }] }>
         <KeyboardAvoidingView
 
           behavior={Platform.OS === "ios" ? "padding" : "height"}
         >
-          <ScrollView bounces={false}>
+          <ScrollView  bounces={false}>
             <Formik
-              initialValues={{ username: "", password: "" }}
+              initialValues={{ username: ""}}
               validationSchema={loginSchema}
-              onSubmit={values => this.handleLogin(values)}
+              onSubmit={ (val)=> this.handleLogin(val.username)}
             >
               {props => {
                 console.log(props, "fdsfsdfdsf");
                 return (
-                  <View>
+                  <View style={{alignContent:'space-between'}}>
                     {/* <View style={styles.headStyle}>
                       <Icon name="emotsmile" size={100} />
                       <Text style={styles.headText}>
                         Build Something Amazing
                       </Text>
                     </View> */}
+                    <Text style={{fontSize: 30, alignSelf: 'center', marginTop: 30}}> Kullanici Adi Olustur</Text>
+                    <Text style={{ alignSelf: 'center', marginTop: 5}}> Yeni hesabina bir kullanici adi belirle.</Text>
                     <View style={styles.inputContainer}>
+                        
                       <Input
                         placeholder="Username"
                         value={props.values.username}
@@ -74,27 +86,16 @@ class Login extends Component<Props, {}> {
                         onBlur={props.handleBlur("username")}
                         error={props.touched.username && props.errors.username}
                       />
-                      <Input
-                        placeholder="Password"
-                        value={props.values.password}
-                        onChangeText={props.handleChange("password")}
-                        onBlur={props.handleBlur("password")}
-                        secureTextEntry
-                        error={props.touched.password && props.errors.password}
-                      />
-                      <TouchableOpacity style={{ marginTop: 10 }}>
-                        <Text style={styles.forgotPassword}>
-                          Forgot Password
-                          </Text>
-                          </TouchableOpacity >
-                        <Button text="Login" onPress={props.handleSubmit} />
+                     
+                      
+                        <Button text="Continue" onPress={props.handleSubmit} />
                         
                        
                       
                       
                     </View>
                     <View style={{alignItems:'center',marginTop:20}}>
-                       <TouchableOpacity onPress={()=>this.props.navigation.navigate("SignUpStack")} style={{ marginTop: 10 }}>
+                       <TouchableOpacity onPress={()=>this.props.navigation.navigate("signUpSecond")} style={{ marginTop: 10 }}>
                         <Text style={{color:'blue'}} >
                           Sign Up
                           </Text>
@@ -112,4 +113,11 @@ class Login extends Component<Props, {}> {
   }
 }
 
-export default Login;
+const mapStateToProps = (state : AppState) => ({
+  username : state.signup.username
+})
+
+export default connect(mapStateToProps,{controlUsername})(SignUpFirstScreen);
+
+
+

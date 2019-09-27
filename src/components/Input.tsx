@@ -17,6 +17,7 @@ export class Input extends Component<Props, {}> {
           { borderBottomColor: error ? colors.accent : colors.borderColor }
         ]}
       />
+      
     );
   }
 }

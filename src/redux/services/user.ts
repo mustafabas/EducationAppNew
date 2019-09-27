@@ -1,5 +1,8 @@
 import { AsyncStorage } from "react-native";
 
+
+
+
 export function fetchImageService(page?: number, limit?: number) {
   return new Promise((resolve, reject) => {
     fetch(`https://picsum.photos/v2/list?page=${page}&limit=${limit}`)
@@ -14,6 +17,17 @@ export function fetchImageService(page?: number, limit?: number) {
       });
   });
 }
+
+
+export function controlUsername(username: string) {
+return new Promise((resolve,reject) => {
+  //control username if its exist 
+
+});
+}
+
+
+
 
 export function loginUserService(username: string, password: string) {
   return new Promise((resolve, reject) => {

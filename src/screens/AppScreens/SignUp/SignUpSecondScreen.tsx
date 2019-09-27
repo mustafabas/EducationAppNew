@@ -10,24 +10,19 @@ import { NavigationScreenProp, NavigationState } from "react-navigation";
 import { Formik } from "formik";
 import * as Yup from "yup";
 import Icon from "react-native-vector-icons/SimpleLineIcons";
-import { loginUserService } from "../../../redux/services/user";
+import { registerNewUser } from "../../../redux/actions/signupActions";
 import { Input, Button, FloatingLabelInput } from "../../../components";
-import styles from "./styles";
+import styles from "../../AuthScreens/Login/styles";
 
 interface Props {
   navigation: NavigationScreenProp<NavigationState>;
 }
 interface userData {
-  username: string;
   password: string;
+
 }
 
 const loginSchema = Yup.object().shape({
-  username: Yup.string()
-    .matches(/^[a-zA-Z0-9_-]+$/)
-    .min(4)
-    .max(16)
-    .required(),
   password: Yup.string()
     .matches(/^[a-zA-Z]+(\s?[a-zA-z]+)*$/)
     .min(6)
@@ -35,70 +30,58 @@ const loginSchema = Yup.object().shape({
     .required()
 });
 
-class Login extends Component<Props, {}> {
+class SignUpSecondScreen extends Component<Props, {}> {
   handleLogin = (values: userData) => {
     const { navigation } = this.props;
-    loginUserService(values.username, values.password).then(res => {
+    registerNewUser(values.password).then(res => {
       navigation.navigate("AppStack");
     });
   };
 
   render() {
     return (
-      <View style={styles.container}>
+      <View style={[styles.container, {justifyContent:'flex-start' }] }>
         <KeyboardAvoidingView
 
           behavior={Platform.OS === "ios" ? "padding" : "height"}
         >
-          <ScrollView bounces={false}>
+          <ScrollView  bounces={false}>
             <Formik
-              initialValues={{ username: "", password: "" }}
+              initialValues={{ password: ""}}
               validationSchema={loginSchema}
               onSubmit={values => this.handleLogin(values)}
             >
               {props => {
                 console.log(props, "fdsfsdfdsf");
                 return (
-                  <View>
+                  <View style={{alignContent:'space-between'}}>
                     {/* <View style={styles.headStyle}>
                       <Icon name="emotsmile" size={100} />
                       <Text style={styles.headText}>
                         Build Something Amazing
                       </Text>
                     </View> */}
+                    <Text style={{fontSize: 30, alignSelf: 'center', marginTop: 30}}> Bir parola Olustur</Text>
+                    <Text style={{ alignSelf: 'center', marginTop: 5}}> Yeni hesabina bir sifre belirle.</Text>
                     <View style={styles.inputContainer}>
+                        
                       <Input
-                        placeholder="Username"
-                        value={props.values.username}
-                        onChangeText={props.handleChange("username")}
-                        onBlur={props.handleBlur("username")}
-                        error={props.touched.username && props.errors.username}
-                      />
-                      <Input
-                        placeholder="Password"
+                        placeholder="password"
                         value={props.values.password}
                         onChangeText={props.handleChange("password")}
                         onBlur={props.handleBlur("password")}
-                        secureTextEntry
                         error={props.touched.password && props.errors.password}
                       />
-                      <TouchableOpacity style={{ marginTop: 10 }}>
-                        <Text style={styles.forgotPassword}>
-                          Forgot Password
-                          </Text>
-                          </TouchableOpacity >
-                        <Button text="Login" onPress={props.handleSubmit} />
+                     
+                      
+                        <Button text="Finish" onPress={props.handleSubmit} />
                         
                        
                       
                       
                     </View>
                     <View style={{alignItems:'center',marginTop:20}}>
-                       <TouchableOpacity onPress={()=>this.props.navigation.navigate("SignUpStack")} style={{ marginTop: 10 }}>
-                        <Text style={{color:'blue'}} >
-                          Sign Up
-                          </Text>
-                          </TouchableOpacity >
+
                     </View>
                     
                   </View>
@@ -112,4 +95,4 @@ class Login extends Component<Props, {}> {
   }
 }
 
-export default Login;
+export default SignUpSecondScreen;
