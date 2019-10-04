@@ -17,13 +17,17 @@ import Login from "../screens/AuthScreens/Login";
 import AuthLoading from "../screens/AuthLoading";
 import SignUpFirstScreen from '../screens/AppScreens/SignUp/SignUpFirstScreen'
 import SignUpSecondScreen from '../screens/AppScreens/SignUp/SignUpSecondScreen'
+import App from '../screens/AppScreens/Home/App'
+import UserInfoScreen from "../screens/AppScreens/User/UserInfoScreen";
 const MainStack = createStackNavigator(
   {
-    Home: { screen: Home }
+    Home: { screen: Home },
+    App : { screen :App },
+    UserInfo : {screen: UserInfoScreen}
   },
   {
-    initialRouteName: "Home",
-    headerMode: "none"
+    initialRouteName: "App",
+    // headerMode: "none"
   }
 );
 
@@ -41,6 +45,7 @@ const SignUpStack = createStackNavigator(
   { 
     signUpFirst : {screen : SignUpFirstScreen},
     signUpSecond : {screen : SignUpSecondScreen},
+
   },
   {
     initialRouteName: "signUpFirst",
@@ -68,10 +73,11 @@ export default createAppContainer(
       AuthLoading: AuthLoading,
       AuthStack: AuthStack,
       AppStack: AppStack,
-      SignUpStack: SignUpStack
+      SignUpStack: SignUpStack,
+      MainStack : MainStack
     },
     {
-      initialRouteName: "AuthLoading"
+      initialRouteName: "MainStack"
     }
   )
 );
