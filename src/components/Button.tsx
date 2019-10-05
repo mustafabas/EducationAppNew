@@ -28,7 +28,7 @@ export class Button extends Component<Props, {}>{
   render() {
     const {text} = this.props;
     return(
-      <TouchableOpacity {...this.props} style={styles.buttonStyle}>
+      <TouchableOpacity {...this.props} style={[styles.buttonStyle,this.props.style]}>
         <Text style = {styles.buttonTextStyle}>
           {text}
 

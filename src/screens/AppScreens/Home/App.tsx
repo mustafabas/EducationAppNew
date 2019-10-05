@@ -88,7 +88,7 @@ export default class App extends Component<HomeScreenProps,{}> {
           // height : screenProps.navigation.getParam('headerHeight'),
           // backgroundColor:'#d67676'
       },
-        header: null
+        header: null 
     }
   }  
 
@@ -232,7 +232,7 @@ Developing mobile applications with React Native and designing databases.</Text>
           <LessonSection></LessonSection>
           <LessonSection></LessonSection>
           <LessonSection></LessonSection>
-          <Button  onPress={()=>this.props.navigation.navigate('UserInfo')}> </Button>
+          <Button  onPress={()=>this.props.navigation.navigate('SignUpSecond')}> </Button>
         </Animated.ScrollView>
         <Animated.View
           pointerEvents="none"
