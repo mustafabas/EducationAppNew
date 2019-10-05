@@ -60,6 +60,7 @@
 		ED2971652150620600B7C4FE /* JavaScriptCore.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = ED2971642150620600B7C4FE /* JavaScriptCore.framework */; };
 		F6F4174E365C4AC1A5F09D6D /* libRNDeviceInfo.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 244FCF9574F6421DB30FFE6E /* libRNDeviceInfo.a */; };
 		39CD1BE0A0A0422391ABC658 /* libRNDeviceInfo-tvOS.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 5CA43ECF65A2459884D12666 /* libRNDeviceInfo-tvOS.a */; };
+		EF90E31AF145497F8D58C2CC /* Fontisto.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 007CD2A35C5F47719DEFD5BF /* Fontisto.ttf */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -419,6 +420,7 @@
 		D8EACACA3E6A4807A73FE9D9 /* RNDeviceInfo.xcodeproj */ = {isa = PBXFileReference; name = "RNDeviceInfo.xcodeproj"; path = "../node_modules/react-native-device-info/ios/RNDeviceInfo.xcodeproj"; sourceTree = "<group>"; fileEncoding = undefined; lastKnownFileType = wrapper.pb-project; explicitFileType = undefined; includeInIndex = 0; };
 		244FCF9574F6421DB30FFE6E /* libRNDeviceInfo.a */ = {isa = PBXFileReference; name = "libRNDeviceInfo.a"; path = "libRNDeviceInfo.a"; sourceTree = "<group>"; fileEncoding = undefined; lastKnownFileType = archive.ar; explicitFileType = undefined; includeInIndex = 0; };
 		5CA43ECF65A2459884D12666 /* libRNDeviceInfo-tvOS.a */ = {isa = PBXFileReference; name = "libRNDeviceInfo-tvOS.a"; path = "libRNDeviceInfo-tvOS.a"; sourceTree = "<group>"; fileEncoding = undefined; lastKnownFileType = archive.ar; explicitFileType = undefined; includeInIndex = 0; };
+		007CD2A35C5F47719DEFD5BF /* Fontisto.ttf */ = {isa = PBXFileReference; name = "Fontisto.ttf"; path = "../node_modules/react-native-vector-icons/Fonts/Fontisto.ttf"; sourceTree = "<group>"; fileEncoding = undefined; lastKnownFileType = unknown; explicitFileType = undefined; includeInIndex = 0; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -732,6 +734,7 @@
 				F5A6F433FF5C4939ACA4E0AD /* Octicons.ttf */,
 				00AB694DF37C4BA88E74F90B /* SimpleLineIcons.ttf */,
 				A4D79439A1C14576A64CD6E1 /* Zocial.ttf */,
+				007CD2A35C5F47719DEFD5BF /* Fontisto.ttf */,
 			);
 			name = Resources;
 			sourceTree = "<group>";
@@ -1242,6 +1245,7 @@
 				4313314CE1854B7B8CEFA69F /* Octicons.ttf in Resources */,
 				774A48B826284EC9B2901ABA /* SimpleLineIcons.ttf in Resources */,
 				D2E3E3839C2A47C09E01CD8A /* Zocial.ttf in Resources */,
+				EF90E31AF145497F8D58C2CC /* Fontisto.ttf in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

@@ -26,7 +26,7 @@ const MainStack = createStackNavigator(
     UserInfo : {screen: UserInfoScreen}
   },
   {
-    initialRouteName: "App",
+    initialRouteName: "Home",
     // headerMode: "none"
   }
 );
