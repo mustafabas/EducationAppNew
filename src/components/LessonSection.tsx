@@ -16,8 +16,13 @@ interface Props extends TouchableOpacityProps {
 
 
 export class LessonSection extends Component<Props, {}>{
+
+  static navigationOptions = {
+    headerMode:null
+  }
   render() {
-    const {text} = this.props;
+    const {text,onPress} = this.props;
+
     return(
       <View style={styles.viewStyle}>
         <Text style = {styles.buttonTextStyle}>
@@ -32,7 +37,8 @@ export class LessonSection extends Component<Props, {}>{
           burada dersin icerigi hakkinda kisa bilgi
 
           </Text>
-          <TouchableOpacity >
+
+          <TouchableOpacity onPress={onPress} >
               <Text style= {styles.plusStyle}>
                   +
               </Text>

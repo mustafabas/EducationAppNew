@@ -33,6 +33,7 @@ export class Button extends Component<Props, {}>{
           {text}
 
         </Text>
+
     </TouchableOpacity>
     );
   }
@@ -40,12 +41,12 @@ export class Button extends Component<Props, {}>{
 
 const styles = StyleSheet.create({
   buttonStyle: {
-    backgroundColor: colors.buttonColor,
+    backgroundColor: '#db5c6b',
     height: 45,
     justifyContent: "center",
     alignItems: "center",
     marginVertical: 16,
-    shadowColor: colors.buttonColor,
+    shadowColor: "#db5c6b",
     shadowOffset: {width: 3, height: 3 },
     shadowOpacity: .5,
     borderRadius: 5,
@@ -53,6 +54,7 @@ const styles = StyleSheet.create({
   buttonTextStyle: {
     color: colors.containerBg,
     fontWeight: "700",
-    fontSize: 16
+    fontSize: 16,
+    fontFamily:'OpenSans-Regular'
   }
 });

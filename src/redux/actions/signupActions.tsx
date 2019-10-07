@@ -19,6 +19,7 @@ export function controlUsername(username: string) {
         type: CONTROL_USERNAME,
         payload: username
       });
+      
 
       username2 = username
       

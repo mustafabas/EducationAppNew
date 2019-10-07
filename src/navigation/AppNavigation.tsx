@@ -21,6 +21,7 @@ import SignUpSecondScreen from '../screens/AppScreens/SignUp/SignUpSecondScreen'
 import App from '../screens/AppScreens/Home/App'
 import UserInfoScreen from "../screens/AppScreens/User/UserInfoScreen";
 import HomeScreen from '../screens/AppScreens/Home/HomeScreen'
+import VideoScreen from '../screens/AppScreens/Home/VideoScreen'
 const MainStack = createStackNavigator(
   {
     Home: { screen: Home },
@@ -29,19 +30,43 @@ const MainStack = createStackNavigator(
   },
   {
     initialRouteName: "UserInfo",
-    // headerMode: "none"
+    // headerMode: "none",
+
   }
 );
+
+
 
 
 const EducationVideoStack = createStackNavigator({
   Home : HomeScreen,
   App : { screen :App },
-  SignUpSecond : SignUpSecondScreen
+  SignUpSecond : SignUpSecondScreen,
+  Video: VideoScreen
 
 },{
   // headerMode:'none'
 })
+
+
+
+EducationVideoStack.navigationOptions = ({ navigation }) => {
+
+  let tabBarVisible = true;
+
+  let routeName = navigation.state.routes[navigation.state.index].routeName
+
+  if ( routeName == 'Video' ) {
+      tabBarVisible = false
+  }
+
+  return {
+      tabBarVisible,
+  }
+}
+
+
+
 
 
 
@@ -100,7 +125,7 @@ export default createAppContainer(
       
     },
     {
-      initialRouteName: "mainBottomTab",
+      initialRouteName: "AuthLoading",
 
     }
   )

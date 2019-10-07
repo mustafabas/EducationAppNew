@@ -32,7 +32,7 @@ interface Props {
 
 class HomeScreen extends Component<Props> {
     static navigationOptions = {
-        header : null
+        header: null 
     }
 //   constructor(props: Props) {
 //     super(props);

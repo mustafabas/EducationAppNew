@@ -19,9 +19,9 @@ const styles = StyleSheet.create({
   },
   inputContainer: {
     justifyContent: "center",
-    padding: 20,
+    padding: 5,
     marginBottom:10,
-    shadowColor: '#E4E4E4',backgroundColor: 'white',
+    shadowColor: '#adadad',backgroundColor: 'white',
     marginLeft:10,marginRight:10,
     shadowOffset: {width: 3, height: 3 },
     shadowOpacity: .5,
@@ -35,9 +35,11 @@ const styles = StyleSheet.create({
     color: colors.primary,
     fontWeight: "700"
   },forgotPassword:{
-    // Object.assign(Fonts.size.small),
+
     color:'#c0c0c0',
-    alignSelf:'flex-end'
+
+    marginRight:15,
+    fontFamily:'OpenSans-Regular'
     
 }
 });
