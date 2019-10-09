@@ -16,6 +16,7 @@ import { Input, Button, FloatingLabelInput,LessonSection } from "../../../compon
 import stylesNew from "../../AuthScreens/Login/styles";
 import DeviceInfo from 'react-native-device-info';
 import {NavigationScreenProps,NavigationScreenProp,NavigationScreenComponent,NavigationStackScreenOptions} from 'react-navigation'
+import { Header } from 'react-native-elements';
 
 interface NavStateParams {
   someValue: string
@@ -147,12 +148,12 @@ export default class App extends Component<HomeScreenProps,{}> {
 
     const titleScale = scrollY.interpolate({
       inputRange: [0, HEADER_SCROLL_DISTANCE / 2, HEADER_SCROLL_DISTANCE],
-      outputRange: [1, 1, 0.8],
+      outputRange: [1, 1, 1],
       extrapolate: 'clamp',
     });
     const titleTranslate = scrollY.interpolate({
       inputRange: [0, HEADER_SCROLL_DISTANCE / 2, HEADER_SCROLL_DISTANCE],
-      outputRange: [hasNotchTmp ? 20 : 0, 0, hasNotchTmp ?  40 :  5],
+      outputRange: [hasNotchTmp ? 0 : 0, 0, hasNotchTmp ?  20 :  5],
       extrapolate: 'clamp',
     });
 
@@ -228,7 +229,7 @@ Developing mobile applications with React Native and designing databases.</Text>
               <Text style={{fontSize:12,color:'#919191',marginTop:5}}>bir kasaba + bir açıköğretim üniversitesi mezunu olarak oy haklarımdan feragat edip kanada vatandaşlığı almayı planlıyorum. ielts puanım 7.5, yaştan da hala yırtar pozisyondayım, meslek de kabul edilebilir kategoride, onlar da express entry için uygunsunuz diyor zaten, geriye bir tek kanada hükümetinden ya da eyaletlerden birinden davet almak kalıyor. 3 sene kalıcı oturma izni sonrası vatandaşlığı da alınca orada oy kullanırım artık. zira burada kullandıklarımın bi boka yaramamasının ağırlığından kurtulmanın yanı sıra yukardaki gibi kafatası boşluğunda cerahat ihtiva eden insan artıklarından biraz uzaklaşmış olur da huzur bulurum belki.</Text>
           </View>
           <Text style={[stylesNew.headText,{marginLeft:30}]}>Dersler</Text>
-          <LessonSection ></LessonSection>
+          <LessonSection onPress={()=>this.props.navigation.navigate('Video')} ></LessonSection>
           <LessonSection></LessonSection>
           <LessonSection></LessonSection>
           <LessonSection></LessonSection>
@@ -263,7 +264,12 @@ Developing mobile applications with React Native and designing databases.</Text>
             },
           ]}
         >
-          <Text style={styles.title}>Title</Text>
+          <Header backgroundColor="#d67676"
+  leftComponent={{ icon: 'menu', color: '#fff' }}
+  centerComponent={{ text: 'MY TITLE', style: { color: '#fff' } }}
+  rightComponent={{ icon: 'home', color: '#fff' }}
+/>
+          {/* <Text style={styles.title}>Title</Text> */}
         </Animated.View>
       </SafeAreaView>
     );

@@ -21,6 +21,7 @@ import SignUpSecondScreen from '../screens/AppScreens/SignUp/SignUpSecondScreen'
 import App from '../screens/AppScreens/Home/App'
 import UserInfoScreen from "../screens/AppScreens/User/UserInfoScreen";
 import HomeScreen from '../screens/AppScreens/Home/HomeScreen'
+import VideoScreen from '../screens/AppScreens/Home/VideoScreen'
 const MainStack = createStackNavigator(
   {
     Home: { screen: HomeScreen },
@@ -28,20 +29,44 @@ const MainStack = createStackNavigator(
     UserInfo : {screen: UserInfoScreen}
   },
   {
-    initialRouteName: "Home",
-    // headerMode: "none"
+    initialRouteName: "UserInfo",
+    // headerMode: "none",
+
   }
 );
+
+
 
 
 const EducationVideoStack = createStackNavigator({
   Home : HomeScreen,
   App : { screen :App },
-  SignUpSecond : SignUpSecondScreen
+
+  Video: VideoScreen
 
 },{
   // headerMode:'none'
 })
+
+
+
+EducationVideoStack.navigationOptions = ( navigation:any ) => {
+
+  let tabBarVisible = true;
+
+  let routeName = navigation.state.routes[navigation.state.index].routeName
+
+  if ( routeName == 'Video' ) {
+      tabBarVisible = false
+  }
+
+  return {
+      tabBarVisible,
+  }
+}
+
+
+
 
 
 
@@ -57,7 +82,9 @@ const mainBottomTab = createBottomTabNavigator({
 
 const AuthStack = createStackNavigator(
   {
-    Login: { screen: Login }
+    Login: { screen: Login },
+    SignUpFirst : SignUpFirstScreen,
+    SignUpSecond : SignUpSecondScreen
   },
   {
     initialRouteName: "Login",
@@ -65,19 +92,19 @@ const AuthStack = createStackNavigator(
   }
 );
 
-const SignUpStack = createStackNavigator(
-  { 
-    signUpFirst : {screen : SignUpFirstScreen},
-    signUpSecond : {screen : SignUpSecondScreen},
+// const SignUpStack = createStackNavigator(
+//   { 
+//     signUpFirst : {screen : SignUpFirstScreen},
+//     signUpSecond : {screen : SignUpSecondScreen},
 
-  },
-  {
-    initialRouteName: "signUpFirst",
-    headerMode: "none"
-  }
+//   },
+//   {
+//     initialRouteName: "signUpFirst",
+//     headerMode: "none"
+//   }
   
   
-)
+// )
 
 const AppStack = createDrawerNavigator(
   {
@@ -97,13 +124,14 @@ export default createAppContainer(
       AuthLoading: AuthLoading,
       AuthStack: AuthStack,
       AppStack: AppStack,
-      SignUpStack: SignUpStack,
+
       MainStack : MainStack,
       mainBottomTab: mainBottomTab,
+      VideoScreen: VideoScreen
       
     },
     {
-      initialRouteName: "mainBottomTab",
+      initialRouteName: "AuthLoading",
 
     }
   )

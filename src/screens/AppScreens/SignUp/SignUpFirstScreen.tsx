@@ -1,7 +1,7 @@
 import React, { Component } from "react";
 import {
   View,
-  Text,
+  // Text,
   KeyboardAvoidingView,
   ScrollView,
   Platform, TouchableOpacity
@@ -11,7 +11,8 @@ import { Formik } from "formik";
 import * as Yup from "yup";
 import Icon from "react-native-vector-icons/SimpleLineIcons";
 import { controlUsername } from "../../../redux/actions/signupActions";
-import { Input, Button, FloatingLabelInput } from "../../../components";
+import {  Button, FloatingLabelInput } from "../../../components";
+import {Input,Text} from 'react-native-elements'
 import styles from "../../AuthScreens/Login/styles";
 import { connect } from "react-redux";
 import { AppState } from '../../../redux/store'
@@ -54,7 +55,7 @@ class SignUpFirstScreen extends Component<Props, {}> {
 
 
     return (
-      <View style={[styles.container, {justifyContent:'flex-start' }] }>
+      <View style={[styles.container, {justifyContent:'flex-start',marginTop:50 }] }>
         <KeyboardAvoidingView
 
           behavior={Platform.OS === "ios" ? "padding" : "height"}
@@ -66,7 +67,7 @@ class SignUpFirstScreen extends Component<Props, {}> {
               onSubmit={ (val)=> this.handleLogin(val.username)}
             >
               {props => {
-                console.log(props, "fdsfsdfdsf");
+
                 return (
                   <View style={{alignContent:'space-between'}}>
                     {/* <View style={styles.headStyle}>
@@ -75,32 +76,31 @@ class SignUpFirstScreen extends Component<Props, {}> {
                         Build Something Amazing
                       </Text>
                     </View> */}
-                    <Text style={{fontSize: 30, alignSelf: 'center', marginTop: 30}}> Kullanici Adi Olustur</Text>
-                    <Text style={{ alignSelf: 'center', marginTop: 5}}> Yeni hesabina bir kullanici adi belirle.</Text>
-                    <View style={styles.inputContainer}>
+                    <Text h3  style={{fontFamily:'OpenSans-Regular', alignSelf: 'center', marginTop: 30}}> Kullanici Adi Olustur</Text>
+                    <Text style={{ fontFamily:'OpenSans-Regular',alignSelf: 'center', marginTop: 5}}> Yeni hesabina bir kullanici adi belirle.</Text>
+                    <View style={[styles.inputContainer,{padding:10,marginTop:20}]}>
                         
                       <Input
+                        inputStyle={{fontFamily:'OpenSans-Regular',fontSize:15}}
                         placeholder="Username"
+                        style={{fontFamily:'OpenSans-Regular'}}
                         value={props.values.username}
                         onChangeText={props.handleChange("username")}
                         onBlur={props.handleBlur("username")}
-                        error={props.touched.username && props.errors.username}
+                        // error={props.touched.username && props.errors.username}
+                        errorMessage= "Lutfen uygun bir kullanici adi girin"
+                        errorStyle={{height: (props.touched.username && props.errors.username) ? 20 : 0}}
+                        
                       />
                      
                       
-                        <Button text="Continue" onPress={props.handleSubmit} />
+                        <Button  text="Continue" onPress={props.handleSubmit} />
                         
                        
                       
                       
                     </View>
-                    <View style={{alignItems:'center',marginTop:20}}>
-                       <TouchableOpacity onPress={()=>this.props.navigation.navigate("signUpSecond")} style={{ marginTop: 10 }}>
-                        <Text style={{color:'blue'}} >
-                          Sign Up
-                          </Text>
-                          </TouchableOpacity >
-                    </View>
+
                     
                   </View>
                 );

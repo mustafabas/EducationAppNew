@@ -1,8 +1,8 @@
 import { AsyncStorage } from "react-native";
 import { useDispatch } from "react-redux";
 import { Dispatch } from "react";
+import {CONTROL_USERNAME} from './types'
 
-export const CONTROL_USERNAME = "controlUsername";
 
 
 // export const DATA_LOADING = "DATA_LOADING";
@@ -19,6 +19,7 @@ export function controlUsername(username: string) {
         type: CONTROL_USERNAME,
         payload: username
       });
+      
 
       username2 = username
       
