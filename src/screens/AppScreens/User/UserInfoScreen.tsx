@@ -20,6 +20,7 @@ import DeviceInfo  from 'react-native-device-info';
 import { Avatar,Input,Text } from 'react-native-elements';
 import Fonts from '../../../Theme/Fonts'
 import Colors from '../../../Theme/Colors'
+import {logoutUserService } from '../../../redux/actions/LoginActions'
 
 interface Props {
   navigation: NavigationScreenProp<NavigationState>;
@@ -92,18 +93,23 @@ backgroundColor="rgba(0, 0, 0, 0.251)"
   }}
   showEditButton
 />
-<Text style={{textAlign:'center',fontSize:Fonts.size.h4,marginTop:10}}>Bilal Oguz Marifet</Text>
+
 
 </View>
 <View style={{marginLeft:20,marginTop:30}}>
-<Text style={{fontSize:Fonts.size.regular ,fontWeight:'800',color:Colors.text}}>Personel</Text>
-<Input value="bilal oguz marifet" inputStyle={{color:Colors.text}} containerStyle={{marginLeft:-10,marginTop:20}}/>    
-<Input value="bilalmarifet@gmail.com" inputStyle={{color:Colors.text}} containerStyle={{marginLeft:-10,marginTop:20}}/>    
-<Text style={{fontSize:Fonts.size.regular ,fontWeight:'800',color:Colors.text,marginTop:50}}>Phone Number</Text>
-<Input value="05333728696" inputStyle={{color:Colors.text}} containerStyle={{marginLeft:-10,marginTop:20}}/>    
+
+<Input value="bilal oguz marifet" inputStyle={{color:Colors.text,fontFamily:'Roboto-Regular'}} containerStyle={{marginLeft:-10,marginTop:20}}/>    
+<Input value="bilalmarifet@gmail.com" inputStyle={{color:Colors.text,fontFamily:'Roboto-Regular'}} containerStyle={{marginLeft:-10,marginTop:20}}/>    
+<Text style={{fontFamily:'Roboto-Regular',fontSize:Fonts.size.regular ,fontWeight:'700',color:Colors.text,marginTop:50}}>Private Information</Text>
+<Input leftIconContainerStyle={{marginLeft:0}} leftIcon={
+  <Icon name="phone"/>
+}  value="05333728696" inputStyle={{marginLeft:5,color:Colors.text,fontFamily:'Roboto-Regular'}} containerStyle={{marginLeft:-10,marginTop:20}}/>    
+<Input leftIconContainerStyle={{marginLeft:0}} leftIcon={
+  <Icon name="lock"/>
+}  value="05333728696"  inputStyle={{marginLeft:5,color:Colors.text,fontFamily:'Roboto-Regular'}} containerStyle={{marginLeft:-10,marginTop:20}}/>    
 
 
-<Button style={{width:100}} text="Cikis Yap">
+<Button style={{width:100}} onPress={()=> logoutUserService()} text="Cikis Yap">
   
 </Button>
 </View>
@@ -124,7 +130,7 @@ backgroundColor="rgba(0, 0, 0, 0.251)"
 
 
 
-export default connect()(UserInfoScreen);
 
 
 
+export default connect(null,{logoutUserService})(UserInfoScreen)

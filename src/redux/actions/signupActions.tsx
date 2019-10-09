@@ -1,8 +1,8 @@
 import { AsyncStorage } from "react-native";
 import { useDispatch } from "react-redux";
 import { Dispatch } from "react";
+import {CONTROL_USERNAME} from './types'
 
-export const CONTROL_USERNAME = "controlUsername";
 
 
 // export const DATA_LOADING = "DATA_LOADING";

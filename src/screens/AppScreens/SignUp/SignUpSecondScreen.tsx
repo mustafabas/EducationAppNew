@@ -1,7 +1,7 @@
 import React, { Component } from "react";
 import {
   View,
-  Text,
+
   KeyboardAvoidingView,
   ScrollView,
   Platform, TouchableOpacity
@@ -9,6 +9,7 @@ import {
 import { NavigationScreenProp, NavigationState } from "react-navigation";
 import { Formik } from "formik";
 import * as Yup from "yup";
+import {Text} from 'react-native-elements'
 import Icon from "react-native-vector-icons/SimpleLineIcons";
 import { registerNewUser } from "../../../redux/actions/signupActions";
 import { Input, Button, FloatingLabelInput } from "../../../components";
@@ -36,11 +37,12 @@ class SignUpSecondScreen extends Component<Props, {}> {
     registerNewUser(values.password).then(res => {
       navigation.navigate("AppStack");
     });
+    this.props.navigation.navigate('mainBottomTab')
   };
 
   render() {
     return (
-      <View style={[styles.container, {justifyContent:'flex-start' }] }>
+      <View style={[styles.container, {justifyContent:'flex-start' ,marginTop:50}] }>
         <KeyboardAvoidingView
 
           behavior={Platform.OS === "ios" ? "padding" : "height"}
@@ -49,7 +51,10 @@ class SignUpSecondScreen extends Component<Props, {}> {
             <Formik
               initialValues={{ password: ""}}
               validationSchema={loginSchema}
-              onSubmit={values => this.handleLogin(values)}
+              onSubmit={values => this.handleLogin(values)
+              
+              }
+
             >
               {props => {
                 console.log(props, "fdsfsdfdsf");
@@ -61,9 +66,9 @@ class SignUpSecondScreen extends Component<Props, {}> {
                         Build Something Amazing
                       </Text>
                     </View> */}
-                    <Text style={{fontSize: 30, alignSelf: 'center', marginTop: 30}}> Bir parola Olustur</Text>
-                    <Text style={{ alignSelf: 'center', marginTop: 5}}> Yeni hesabina bir sifre belirle.</Text>
-                    <View style={styles.inputContainer}>
+                    <Text h3 style={{alignSelf: 'center', marginTop: 30,fontFamily:'OpenSans-Regular'}}> Bir parola Olustur</Text>
+                    <Text style={{ alignSelf: 'center', marginTop: 5,fontFamily:'OpenSans-Regular'}}> Yeni hesabina bir sifre belirle.</Text>
+                    <View style={[styles.inputContainer,{padding:10,marginTop:20}]}>
                         
                       <Input
                         placeholder="password"
@@ -74,7 +79,7 @@ class SignUpSecondScreen extends Component<Props, {}> {
                       />
                      
                       
-                        <Button text="Finish" onPress={props.handleSubmit} />
+                        <Button text="Finish"  onPress={props.handleSubmit} />
                         
                        
                       

@@ -10,21 +10,29 @@ import { NavigationScreenProp, NavigationState } from "react-navigation";
 import { Formik } from "formik";
 import * as Yup from "yup";
 
-import { loginUserService } from "../../../redux/services/user";
+import { loginUserService } from "../../../redux/actions/LoginActions";
 import {Input,Image, Avatar,Icon,Button as NewButton} from 'react-native-elements'
 import { Button, FloatingLabelInput } from "../../../components";
-
+import { AppState } from '../../../redux/store'
+import { connect } from "react-redux";
 import { colors } from "../../../constants";
 import styles from "./styles";
 import LinearGradient from 'react-native-linear-gradient';
+import { stat } from "fs";
 
 interface Props {
   navigation: NavigationScreenProp<NavigationState>;
+  isFinished : boolean;
+  isSucceed : boolean;
+  isLoading : boolean;
 }
 interface userData {
   username: string;
   password: string;
+  
 }
+
+
 
 const loginSchema = Yup.object().shape({
   username: Yup.string()
@@ -41,10 +49,16 @@ const loginSchema = Yup.object().shape({
 
 class Login extends Component<Props, {}> {
   handleLogin = (values: userData) => {
-    const { navigation } = this.props;
-    loginUserService(values.username, values.password).then(res => {
-      navigation.navigate("AppStack");
-    });
+    const { navigation,isSucceed,isFinished,isLoading } = this.props;
+   loginUserService(values.username, values.password)
+
+     
+
+
+      
+      console.log("sdsds")
+      
+
   };
 
   render() {
@@ -60,7 +74,7 @@ class Login extends Component<Props, {}> {
 
             <Formik
               initialValues={{ username: "", password: "" }}
-              validationSchema={loginSchema}
+              // validationSchema={loginSchema}
               onSubmit={values => this.handleLogin(values)}
             >
               {props => {
@@ -104,7 +118,7 @@ class Login extends Component<Props, {}> {
                         errorStyle={{height: (props.touched.password && props.errors.password) ? 20 : 0,color:'#a31515'}}
                           />
                           <View style={{flexDirection:'row',justifyContent:'space-between',marginLeft:15}}>
-                          <TouchableOpacity onPress={()=> this.props.navigation.navigate('SignUpStack')} style={{ marginTop: 10 }}>
+                          <TouchableOpacity onPress={()=> this.props.navigation.navigate('SignUpFirst')} style={{ marginTop: 10 }}>
                         <Text style={{color:'#a31515',fontFamily:'OpenSans-Regular'}}>
                           Uye Ol
                           </Text>
@@ -166,4 +180,18 @@ class Login extends Component<Props, {}> {
   }
 }
 
-export default Login;
+
+
+const mapStateToProps = (state : AppState) => ({
+  isFinished : state.login.isFinished,
+  isSucceed : state.login.isSucceed,
+  isLoading : state.login.isLoading,
+
+
+})
+
+
+
+
+export default connect(mapStateToProps,{loginUserService})(Login);
+

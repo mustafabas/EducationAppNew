@@ -41,7 +41,7 @@ const MainStack = createStackNavigator(
 const EducationVideoStack = createStackNavigator({
   Home : HomeScreen,
   App : { screen :App },
-  SignUpSecond : SignUpSecondScreen,
+
   Video: VideoScreen
 
 },{
@@ -79,7 +79,9 @@ const mainBottomTab = createBottomTabNavigator({
 
 const AuthStack = createStackNavigator(
   {
-    Login: { screen: Login }
+    Login: { screen: Login },
+    SignUpFirst : SignUpFirstScreen,
+    SignUpSecond : SignUpSecondScreen
   },
   {
     initialRouteName: "Login",
@@ -87,19 +89,19 @@ const AuthStack = createStackNavigator(
   }
 );
 
-const SignUpStack = createStackNavigator(
-  { 
-    signUpFirst : {screen : SignUpFirstScreen},
-    signUpSecond : {screen : SignUpSecondScreen},
+// const SignUpStack = createStackNavigator(
+//   { 
+//     signUpFirst : {screen : SignUpFirstScreen},
+//     signUpSecond : {screen : SignUpSecondScreen},
 
-  },
-  {
-    initialRouteName: "signUpFirst",
-    headerMode: "none"
-  }
+//   },
+//   {
+//     initialRouteName: "signUpFirst",
+//     headerMode: "none"
+//   }
   
   
-)
+// )
 
 const AppStack = createDrawerNavigator(
   {
@@ -119,9 +121,10 @@ export default createAppContainer(
       AuthLoading: AuthLoading,
       AuthStack: AuthStack,
       AppStack: AppStack,
-      SignUpStack: SignUpStack,
+
       MainStack : MainStack,
       mainBottomTab: mainBottomTab,
+      VideoScreen: VideoScreen
       
     },
     {

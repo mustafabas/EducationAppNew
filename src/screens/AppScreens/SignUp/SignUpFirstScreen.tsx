@@ -76,7 +76,7 @@ class SignUpFirstScreen extends Component<Props, {}> {
                         Build Something Amazing
                       </Text>
                     </View> */}
-                    <Text h2  style={{fontFamily:'OpenSans-Regular', alignSelf: 'center', marginTop: 30}}> Kullanici Adi Olustur</Text>
+                    <Text h3  style={{fontFamily:'OpenSans-Regular', alignSelf: 'center', marginTop: 30}}> Kullanici Adi Olustur</Text>
                     <Text style={{ fontFamily:'OpenSans-Regular',alignSelf: 'center', marginTop: 5}}> Yeni hesabina bir kullanici adi belirle.</Text>
                     <View style={[styles.inputContainer,{padding:10,marginTop:20}]}>
                         

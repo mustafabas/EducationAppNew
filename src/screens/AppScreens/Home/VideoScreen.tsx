@@ -1,8 +1,9 @@
 /*Example of React Native Video*/
 import React, { Component } from 'react';
 //Import React
-import { Platform, StyleSheet, Text, View,  } from 'react-native';
+import { Platform, StyleSheet, Text, View, TouchableOpacity,  } from 'react-native';
 //Import Basic React Native Component
+import {Icon} from 'react-native-elements'
 import Video from 'react-native-video';
 //Import React Native Video to play video
 import {SafeAreaView, ScrollView} from 'react-navigation'
@@ -74,15 +75,16 @@ class VideoScreen extends Component {
     else this.setState({ screenType: 'content' });
   };
   renderToolbar = () => (
-    <View>
-      <Text> toolbar </Text>
-    </View>
+    <TouchableOpacity style={{position:'absolute',top:30,left:10}}>
+      
+      <Icon type="ionicon" color="white" name="md-arrow-back" style={{backgroundColor:'white'}} />
+    </TouchableOpacity>
   );
   onSeeking = currentTime => this.setState({ currentTime });
  
   render() {
     return (
-      <ScrollView alwaysBounceVertical style={styles.container}>
+      <View  style={styles.container}>
 
 
               <Video
@@ -116,7 +118,7 @@ class VideoScreen extends Component {
 
           
         
-      </ScrollView>
+      </View>
     );
   }
 }
