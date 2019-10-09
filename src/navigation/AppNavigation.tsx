@@ -3,7 +3,8 @@ import {
   createStackNavigator,
   createAppContainer,
   createSwitchNavigator,
-  createDrawerNavigator
+  createDrawerNavigator,
+  createBottomTabNavigator
 } from "react-navigation";
 
 import { Dimensions } from "react-native";
@@ -19,9 +20,10 @@ import SignUpFirstScreen from '../screens/AppScreens/SignUp/SignUpFirstScreen'
 import SignUpSecondScreen from '../screens/AppScreens/SignUp/SignUpSecondScreen'
 import App from '../screens/AppScreens/Home/App'
 import UserInfoScreen from "../screens/AppScreens/User/UserInfoScreen";
+import HomeScreen from '../screens/AppScreens/Home/HomeScreen'
 const MainStack = createStackNavigator(
   {
-    Home: { screen: Home },
+    Home: { screen: HomeScreen },
     App : { screen :App },
     UserInfo : {screen: UserInfoScreen}
   },
@@ -29,6 +31,28 @@ const MainStack = createStackNavigator(
     initialRouteName: "Home",
     // headerMode: "none"
   }
+);
+
+
+const EducationVideoStack = createStackNavigator({
+  Home : HomeScreen,
+  App : { screen :App },
+  SignUpSecond : SignUpSecondScreen
+
+},{
+  // headerMode:'none'
+})
+
+
+
+const mainBottomTab = createBottomTabNavigator({
+  Education : EducationVideoStack,
+  UserInfo : {screen: UserInfoScreen}
+},
+{
+  initialRouteName: "Education",
+  // headerMode: "none"
+}
 );
 
 const AuthStack = createStackNavigator(
@@ -74,10 +98,13 @@ export default createAppContainer(
       AuthStack: AuthStack,
       AppStack: AppStack,
       SignUpStack: SignUpStack,
-      MainStack : MainStack
+      MainStack : MainStack,
+      mainBottomTab: mainBottomTab,
+      
     },
     {
-      initialRouteName: "MainStack"
+      initialRouteName: "mainBottomTab",
+
     }
   )
 );
