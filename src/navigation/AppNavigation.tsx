@@ -22,6 +22,7 @@ import App from '../screens/AppScreens/Home/App'
 import UserInfoScreen from "../screens/AppScreens/User/UserInfoScreen";
 import HomeScreen from '../screens/AppScreens/Home/HomeScreen'
 import VideoScreen from '../screens/AppScreens/Home/VideoScreen'
+import SignUpSecondPhoneVerificationScreen from '../screens/AppScreens/SignUp/SignUpPhoneVerificationScreen'
 const MainStack = createStackNavigator(
   {
     Home: { screen: Home },
@@ -79,12 +80,14 @@ const mainBottomTab = createBottomTabNavigator({
 
 const AuthStack = createStackNavigator(
   {
+    
     Login: { screen: Login },
     SignUpFirst : SignUpFirstScreen,
-    SignUpSecond : SignUpSecondScreen
+    SignUpSecond : SignUpSecondScreen,
+    SignUpSecondPhoneVerification : SignUpSecondPhoneVerificationScreen
   },
   {
-    initialRouteName: "Login",
+    initialRouteName: "SignUpSecondPhoneVerification",
     headerMode: "none"
   }
 );

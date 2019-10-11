@@ -21,7 +21,7 @@ class VideoScreen extends Component {
       currentTime: 0,
       duration: 0,
       isFullScreen: false,
-      isLoading: true,
+      isLoadingVideo: true,
       paused: false,
       playerState: PLAYER_STATES.PLAYING,
       screenType: 'content',
@@ -48,16 +48,16 @@ class VideoScreen extends Component {
   };
  
   onProgress = data => {
-    const { isLoading, playerState } = this.state;
+    const { isLoadingVideo, playerState } = this.state;
     // Video Player will continue progress even if the video already ended
-    if (!isLoading && playerState !== PLAYER_STATES.ENDED) {
+    if (!isLoadingVideo && playerState !== PLAYER_STATES.ENDED) {
       this.setState({ currentTime: data.currentTime });
     }
   };
   
-  onLoad = data => this.setState({ duration: data.duration, isLoading: false });
+  onLoad = data => this.setState({ duration: data.duration, isLoadingVideo: false });
   
-  onLoadStart = data => this.setState({ isLoading: true });
+  onLoadStart = data => this.setState({ isLoadingVideo: true });
   
   onEnd = () => this.setState({ playerState: PLAYER_STATES.ENDED });
   
@@ -103,7 +103,7 @@ class VideoScreen extends Component {
         />
         <MediaControls
           duration={this.state.duration}
-          isLoading={this.state.isLoading}
+          isLoading={this.state.isLoadingVideo}
           mainColor="#333"
           onFullScreen={this.onFullScreen}
           onPaused={this.onPaused}

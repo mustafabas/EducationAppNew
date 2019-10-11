@@ -10,7 +10,7 @@ import { NavigationScreenProp, NavigationState } from "react-navigation";
 import { Formik } from "formik";
 import * as Yup from "yup";
 
-import { loginUserService } from "../../../redux/actions/LoginActions";
+import { loginUserService} from "../../../redux/actions/LoginActions";
 import {Input,Image, Avatar,Icon,Button as NewButton} from 'react-native-elements'
 import { Button, FloatingLabelInput } from "../../../components";
 import { AppState } from '../../../redux/store'
@@ -18,16 +18,19 @@ import { connect } from "react-redux";
 import { colors } from "../../../constants";
 import styles from "./styles";
 import LinearGradient from 'react-native-linear-gradient';
-import { stat } from "fs";
+import FlashMessage,{ showMessage, hideMessage, } from "react-native-flash-message";
+
 
 interface Props {
   navigation: NavigationScreenProp<NavigationState>;
   isFinished : boolean;
   isSucceed : boolean;
   isLoading : boolean;
+  loginUserService : (email : string , password : string ) => void;
+
 }
 interface userData {
-  username: string;
+  email: string;
   password: string;
   
 }
@@ -35,7 +38,7 @@ interface userData {
 
 
 const loginSchema = Yup.object().shape({
-  username: Yup.string()
+  email: Yup.string()
     .matches(/^[a-zA-Z0-9_-]+$/)
     .min(4)
     .max(16)
@@ -48,18 +51,40 @@ const loginSchema = Yup.object().shape({
 });
 
 class Login extends Component<Props, {}> {
+
+  showSimpleMessage() {
+
+    if (this.props.isFinished && (!this.props.isSucceed)) {
+
+      showMessage({
+        message: "Kullanici Adi veya yanlis",
+        type: "danger",
+      }
+      
+      );
+
+    }
+  
+  }
+
+
+  
+
+ 
   handleLogin = (values: userData) => {
-    const { navigation,isSucceed,isFinished,isLoading } = this.props;
-   loginUserService(values.username, values.password)
+    console.log("asd "+this.props.isLoading)
+    
 
-     
-
-
+    const { navigation,isSucceed,isFinished,isLoading,loginUserService } = this.props;
+      loginUserService(values.email, values.password);
       
       console.log("sdsds")
+     
       
 
   };
+
+ 
 
   render() {
     return (
@@ -73,7 +98,7 @@ class Login extends Component<Props, {}> {
           <Avatar imageProps={{resizeMode:'contain'}} size='large' rounded containerStyle={{alignSelf:'center',marginTop:40,marginBottom:10}} source={require('../../../assets/logo.png')} />
 
             <Formik
-              initialValues={{ username: "", password: "" }}
+              initialValues={{ email: "", password: "" }}
               // validationSchema={loginSchema}
               onSubmit={values => this.handleLogin(values)}
             >
@@ -93,17 +118,17 @@ class Login extends Component<Props, {}> {
                       <Input
                         
                         inputContainerStyle={{borderWidth:1,borderRadius:5,borderColor:'#a31515',paddingLeft:10}}
-                        placeholder="Username"
+                        placeholder="email"
 
                         containerStyle={{marginBottom:5}}
                         inputStyle={{fontSize:15,color:'#4f4f4f',fontFamily:'OpenSans-Regular'}}
-                        value={props.values.username}
-                        onChangeText={props.handleChange("username")}
-                        onBlur={props.handleBlur("username")}
+                        value={props.values.email}
+                        onChangeText={props.handleChange("email")}
+                        onBlur={props.handleBlur("email")}
                         errorMessage= "Lutfen uygun bir kullanici adi girin"
-                        errorStyle={{height: (props.touched.username && props.errors.username) ? 20 : 0,color:'#a31515'}}
-                        // error={props.touched.username && props.errors.username}
-                        // errorStyle={{borderBottomColor: (props.touched.username && props.errors.username) ? colors.accent : colors.borderColor}}
+                        errorStyle={{height: (props.touched.email && props.errors.email) ? 20 : 0,color:'#a31515'}}
+                        // error={props.touched.email && props.errors.email}
+                        // errorStyle={{borderBottomColor: (props.touched.email && props.errors.email) ? colors.accent : colors.borderColor}}
                       />  
                      
                       <Input
@@ -125,13 +150,14 @@ class Login extends Component<Props, {}> {
                           </TouchableOpacity >
                           <TouchableOpacity style={{ marginTop: 10 }}>
                         <Text style={styles.forgotPassword}>
-                          Forgot Password
+                          Şifremi Unuttum
                           </Text>
                           </TouchableOpacity >
                           </View>
                       
-                        <Button text="Login" style={{marginHorizontal:10}} onPress={props.handleSubmit} />
-                        <Button text="Facebookla Baglan" style={{ marginHorizontal:10, borderRadius:5,backgroundColor:'#4267B2',shadowColor: '#4267B2',marginTop:0}}  />
+
+                        <Button loading={this.props.isLoading} text="Giriş Yap" style={{marginHorizontal:10}} onPress={props.handleSubmit} />
+                        <Button loading={false} text="Facebookla Baglan" style={{ marginHorizontal:10, borderRadius:5,backgroundColor:'#4267B2',shadowColor: '#4267B2',marginTop:0}}  />
              
                         <View style={{flexDirection:'row',marginHorizontal:10,justifyContent:'space-evenly',flex:1,marginBottom:10}}>
               <NewButton titleStyle={{color:"black",fontFamily:'OpenSans-Regular',marginLeft:5}} containerStyle={{flex:0.5,marginRight:20}} buttonStyle={{backgroundColor:'white',
@@ -171,10 +197,13 @@ class Login extends Component<Props, {}> {
                 );
               }}
             </Formik>
-             
+              
           </ScrollView>
         </KeyboardAvoidingView>
+        {this.showSimpleMessage()}
         {/* </LinearGradient> */}
+       
+
       </View>
     );
   }
@@ -186,12 +215,18 @@ const mapStateToProps = (state : AppState) => ({
   isFinished : state.login.isFinished,
   isSucceed : state.login.isSucceed,
   isLoading : state.login.isLoading,
-
-
 })
 
+function bindToAction(dispatch : any) {
+  return {
+    loginUserService : (email:string , password : string) =>
+    dispatch(loginUserService(email,password))
+ 
+  };
+
+}
 
 
 
-export default connect(mapStateToProps,{loginUserService})(Login);
+export default connect(mapStateToProps,bindToAction)(Login);
 

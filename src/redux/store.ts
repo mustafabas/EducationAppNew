@@ -21,8 +21,9 @@ if (process.env.NODE_ENV === `development`) {
 
 const rootReducer = combineReducers({
   system: reducer,
+  login: loginRed,
   signup: signupred,
-  login: loginRed
+  
 })
 
 
