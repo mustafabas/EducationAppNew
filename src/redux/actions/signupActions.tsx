@@ -1,6 +1,6 @@
 import { AsyncStorage } from "react-native";
 import { useDispatch } from "react-redux";
-import { Dispatch } from "react";
+import { Dispatch } from "redux";
 import {CONTROL_USERNAME} from './types'
 
 
@@ -11,7 +11,6 @@ import {CONTROL_USERNAME} from './types'
 var username2 : String
 
 export function controlUsername(username: string) {
-  console.log("username3" + username)
 
     return (dispatch: Dispatch) => {
       console.log("username3" + username)

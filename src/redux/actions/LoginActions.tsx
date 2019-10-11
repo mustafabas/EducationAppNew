@@ -1,7 +1,7 @@
 import { AsyncStorage } from "react-native";
 import axios from 'axios'
 import {EDU_API_LOGIN } from '../../constants'
-import { Dispatch } from "react";
+import { Dispatch } from "redux";
 import {LOGIN_FAILED,LOGIN_STARTED,LOGIN_SUCCEED } from './types'
 import { navigate } from '../Services/Navigator';
 import {Action} from '../reducers/LoginReducers'
@@ -19,11 +19,12 @@ return new Promise((resolve,reject) => {
 
 export const loginUserService = (username: string, password: string) =>{
     return (dispatch : Dispatch)=>{
+      console.log("asdsadsa");
         dispatch({
           type:LOGIN_STARTED,
         }); 
   console.log(username+password)
-  return axios.post(EDU_API_LOGIN, {
+   axios.post(EDU_API_LOGIN, {
     username: username,
     password: password
   })

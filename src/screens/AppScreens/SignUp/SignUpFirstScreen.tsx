@@ -52,7 +52,7 @@ class SignUpFirstScreen extends Component<Props, {}> {
   }
 
   render() {
-
+      console.log(this.props.username);
 
     return (
       <View style={[styles.container, {justifyContent:'flex-start',marginTop:50 }] }>

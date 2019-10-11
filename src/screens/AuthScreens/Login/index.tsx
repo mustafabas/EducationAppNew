@@ -19,6 +19,7 @@ import { colors } from "../../../constants";
 import styles from "./styles";
 import LinearGradient from 'react-native-linear-gradient';
 import { stat } from "fs";
+import { Action, UserState } from "../../../redux/reducers/LoginReducers";
 
 interface Props {
   navigation: NavigationScreenProp<NavigationState>;
@@ -51,17 +52,13 @@ class Login extends Component<Props, {}> {
   handleLogin = (values: userData) => {
     const { navigation,isSucceed,isFinished,isLoading } = this.props;
    loginUserService(values.username, values.password)
-
-     
-
-
       
-      console.log("sdsds")
-      
-
   };
 
   render() {
+    if(this.props.isLoading){
+      console.log("yükleniyor");
+    }
     return (
       <View style={styles.container}>
         {/* <LinearGradient style={{flex:1}} colors={['#ff4259', '#db5c6b', '#ffb5be']} > */}
@@ -182,16 +179,14 @@ class Login extends Component<Props, {}> {
 
 
 
-const mapStateToProps = (state : AppState) => ({
-  isFinished : state.login.isFinished,
-  isSucceed : state.login.isSucceed,
-  isLoading : state.login.isLoading,
 
 
-})
+const mapToStateProps = ( LoginResponse :UserState) => {
+  const { isLoading } = LoginResponse;
+  return {
+    isLoading
+  };
+};
 
-
-
-
-export default connect(mapStateToProps,{loginUserService})(Login);
+export default connect(mapToStateProps,{loginUserService})(Login);
 

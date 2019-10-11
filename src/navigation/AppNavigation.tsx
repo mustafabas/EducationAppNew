@@ -24,6 +24,7 @@ import HomeScreen from '../screens/AppScreens/Home/HomeScreen'
 import VideoScreen from '../screens/AppScreens/Home/VideoScreen'
 const MainStack = createStackNavigator(
   {
+    Login: { screen: Login },
     Home: { screen: HomeScreen },
     App : { screen :App },
     UserInfo : {screen: UserInfoScreen}
