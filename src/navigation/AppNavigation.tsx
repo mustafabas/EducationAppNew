@@ -18,19 +18,20 @@ import Login from "../screens/AuthScreens/Login";
 import AuthLoading from "../screens/AuthLoading";
 import SignUpFirstScreen from '../screens/AppScreens/SignUp/SignUpFirstScreen'
 import SignUpSecondScreen from '../screens/AppScreens/SignUp/SignUpSecondScreen'
-import App from '../screens/AppScreens/Home/App'
+import CourseDetail from '../screens/AppScreens/Home/CourseDetail'
 import UserInfoScreen from "../screens/AppScreens/User/UserInfoScreen";
 import HomeScreen from '../screens/AppScreens/Home/HomeScreen'
 import VideoScreen from '../screens/AppScreens/Home/VideoScreen'
+import SignUpSecondPhoneVerificationScreen from '../screens/AppScreens/SignUp/SignUpPhoneVerificationScreen'
 const MainStack = createStackNavigator(
   {
     Login: { screen: Login },
     Home: { screen: HomeScreen },
-    App : { screen :App },
+    CourseDetail : { screen :CourseDetail },
     UserInfo : {screen: UserInfoScreen}
   },
   {
-    initialRouteName: "UserInfo",
+    initialRouteName: "Home",
     // headerMode: "none",
 
   }
@@ -41,7 +42,7 @@ const MainStack = createStackNavigator(
 
 const EducationVideoStack = createStackNavigator({
   Home : HomeScreen,
-  App : { screen :App },
+  CourseDetail: { screen :CourseDetail },
 
   Video: VideoScreen
 
@@ -55,12 +56,12 @@ EducationVideoStack.navigationOptions = ( navigation:any ) => {
 
   let tabBarVisible = true;
 
-  let routeName = navigation.state.routes[navigation.state.index].routeName
+  /*let routeName = navigation.state.routes[navigation.state.index].routeName
 
   if ( routeName == 'Video' ) {
       tabBarVisible = false
   }
-
+*/
   return {
       tabBarVisible,
   }
@@ -83,9 +84,11 @@ const mainBottomTab = createBottomTabNavigator({
 
 const AuthStack = createStackNavigator(
   {
+    
     Login: { screen: Login },
     SignUpFirst : SignUpFirstScreen,
-    SignUpSecond : SignUpSecondScreen
+    SignUpSecond : SignUpSecondScreen,
+    SignUpSecondPhoneVerification : SignUpSecondPhoneVerificationScreen
   },
   {
     initialRouteName: "Login",

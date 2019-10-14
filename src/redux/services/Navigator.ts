@@ -24,4 +24,10 @@ export function navigateReset(routeName, params) {
     }
  
  }
+
+
+ export default {
+   navigate,
+   setNavigator,
+ };
  

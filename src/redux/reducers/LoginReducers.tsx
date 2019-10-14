@@ -1,14 +1,7 @@
-import { LOGIN_STARTED,LOGIN_FAILED,LOGIN_SUCCEED } from "../actions/types";
-export interface Action {
-  type: string;
-  payload: any;
-}
-export interface UserState {
-  isLoading : boolean,
-  isFinished: boolean,
-  isSucceed : boolean
+import { LOGIN_STARTED,LOGIN_FAILED,LOGIN_SUCCEED,RESET_PROPS } from "../actions/types";
 
-}
+import { Action } from "../../models/action";
+import { UserState } from "../../models/state";
 
 const intialState = {
     isLoading : false,
@@ -21,12 +14,12 @@ export default (state: UserState = intialState, action: Action) => {
     case LOGIN_STARTED:
       return {
         ...state,
-        isLoading: true,
+        isLoading: action.payload,
       };
     case LOGIN_SUCCEED:
         return {
           ...state,
-          isFinished: true,
+          isFinished:true,
           isSucceed:true,
           isLoading:false
         };
@@ -37,7 +30,15 @@ export default (state: UserState = intialState, action: Action) => {
             isSucceed:false,
               isLoading:false
             };
+    case RESET_PROPS :
+        return {
+          ...state,
+          isFinished:false,
+          isSucceed:false,
+          isLoading:false
+        };
     default:
       return state;
+
   }
 };

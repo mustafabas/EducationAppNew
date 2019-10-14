@@ -3,7 +3,7 @@ import {
   TouchableOpacity,
   Text,
   StyleSheet,
-  TouchableOpacityProps
+  TouchableOpacityProps,ActivityIndicator
 } from "react-native";
 import { colors } from "../constants";
 
@@ -11,6 +11,8 @@ import { colors } from "../constants";
 
 interface Props extends TouchableOpacityProps {
   text: string;
+  loading : boolean;
+  IsDisabled : boolean;
 }
 
 // export class Button extends Component<Props, {}> {
@@ -26,9 +28,23 @@ interface Props extends TouchableOpacityProps {
 
 export class Button extends Component<Props, {}>{
   render() {
-    const {text} = this.props;
+    const {text, loading,IsDisabled } = this.props;
+    console.log(loading)
+    if(loading)
+    {
+      return(
+        <TouchableOpacity  {...this.props} style={[styles.buttonStyle,this.props.style]}>       
+        <ActivityIndicator/>
+      </TouchableOpacity>
+      );
+    }
+    else{
+
     return(
-      <TouchableOpacity {...this.props} style={[styles.buttonStyle,this.props.style]}>
+
+      <TouchableOpacity  {...this.props} disabled={IsDisabled} style={[styles.buttonStyle,this.props.style, {backgroundColor:IsDisabled ? '#b09295' : '#db5c6b',shadowColor : IsDisabled ? '#b09295' : '#db5c6b'}]}>
+
+       
         <Text style = {styles.buttonTextStyle}>
           {text}
 
@@ -36,6 +52,8 @@ export class Button extends Component<Props, {}>{
 
     </TouchableOpacity>
     );
+  }
+
   }
 }
 

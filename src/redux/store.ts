@@ -5,6 +5,7 @@ import storage from "redux-persist/lib/storage";
 import reducer from "./reducers";
 import signupred from './reducers/SignUpReducers'
 import loginRed from './reducers/LoginReducers'
+import HomeReducers from './reducers/HomeReducers';
 
 const persistConfig = {
   key: "root",
@@ -20,9 +21,10 @@ if (process.env.NODE_ENV === `development`) {
 }
 
 const rootReducer = combineReducers({
+  home : HomeReducers,
   system: reducer,
+  login: loginRed,
   signup: signupred,
-  login: loginRed
 })
 
 

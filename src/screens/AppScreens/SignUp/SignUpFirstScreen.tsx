@@ -1,4 +1,4 @@
-import React, { Component } from "react";
+import React, { Component, Dispatch } from "react";
 import {
   View,
   // Text,
@@ -10,30 +10,31 @@ import { NavigationScreenProp, NavigationState } from "react-navigation";
 import { Formik } from "formik";
 import * as Yup from "yup";
 import Icon from "react-native-vector-icons/SimpleLineIcons";
-import { controlUsername } from "../../../redux/actions/signupActions";
+import { controlemail } from "../../../redux/actions/signupActions";
 import {  Button, FloatingLabelInput } from "../../../components";
 import {Input,Text} from 'react-native-elements'
 import styles from "../../AuthScreens/Login/styles";
 import { connect } from "react-redux";
 import { AppState } from '../../../redux/store'
-import { UserState } from '../../../redux/reducers/SignUpReducers'
+import FlashMessage,{ showMessage, hideMessage, } from "react-native-flash-message";
 
 interface Props {
   navigation: NavigationScreenProp<NavigationState>;
-  controlUsername : (username : string) => void;
-  username: string;
-  userState : UserState;
+  isLoadingCheck : boolean;
+  isFinishedCheck: boolean;
+  isSucceedCheck : boolean;
+  controlemail : (email : string) => void;
 }
 
 
+interface userMail {
+  email:string;
 
- 
-
-
+}
 
 
 const loginSchema = Yup.object().shape({
-  username: Yup.string()
+  email: Yup.string()
     .matches(/^[a-zA-Z0-9_-]+$/)
     .min(4)
     .max(16)
@@ -42,17 +43,31 @@ const loginSchema = Yup.object().shape({
 });
 
 class SignUpFirstScreen extends Component<Props, {}> {
-  handleLogin = (username: string) => {
-    const { navigation } = this.props;
-    controlUsername(username);
-    navigation.navigate("SignUpSecond");
-  };
+  showSimpleMessage() {
 
-  componentDidMount(){
+    if (this.props.isFinishedCheck && (!this.props.isSucceedCheck)) {
+      console.log("helaaal")
+      showMessage({
+        message: "Bu email sistemde Kayitlidir",
+        type: "danger",
+      }
+      );
+    }
   }
 
+
+  handleLogin = (values : userMail) => {
+    const { navigation ,controlemail} = this.props;
+
+    console.log('before action ' + this.props.isLoadingCheck)
+    controlemail(values.email);
+    console.log('after action ' + values.email)
+  };
+
+
+
   render() {
-      console.log(this.props.username);
+    
 
     return (
       <View style={[styles.container, {justifyContent:'flex-start',marginTop:50 }] }>
@@ -62,12 +77,12 @@ class SignUpFirstScreen extends Component<Props, {}> {
         >
           <ScrollView  bounces={false}>
             <Formik
-              initialValues={{ username: ""}}
-              validationSchema={loginSchema}
-              onSubmit={ (val)=> this.handleLogin(val.username)}
+              initialValues={{ email: "" }}
+
+              onSubmit={ val=> this.handleLogin(val)}
             >
               {props => {
-
+        console.log(props);
                 return (
                   <View style={{alignContent:'space-between'}}>
                     {/* <View style={styles.headStyle}>
@@ -76,25 +91,25 @@ class SignUpFirstScreen extends Component<Props, {}> {
                         Build Something Amazing
                       </Text>
                     </View> */}
-                    <Text h3  style={{fontFamily:'OpenSans-Regular', alignSelf: 'center', marginTop: 30}}> Kullanici Adi Olustur</Text>
-                    <Text style={{ fontFamily:'OpenSans-Regular',alignSelf: 'center', marginTop: 5}}> Yeni hesabina bir kullanici adi belirle.</Text>
+                    <Text h3  style={{fontFamily:'OpenSans-Regular', alignSelf: 'center', marginTop: 30}}> Email Adresiniz</Text>
+                    <Text style={{ fontFamily:'OpenSans-Regular',alignSelf: 'center', marginTop: 5}}> Hesabini olusturmak icin mailini yaz.</Text>
                     <View style={[styles.inputContainer,{padding:10,marginTop:20}]}>
                         
                       <Input
                         inputStyle={{fontFamily:'OpenSans-Regular',fontSize:15}}
-                        placeholder="Username"
+                        placeholder="email"
                         style={{fontFamily:'OpenSans-Regular'}}
-                        value={props.values.username}
-                        onChangeText={props.handleChange("username")}
-                        onBlur={props.handleBlur("username")}
-                        // error={props.touched.username && props.errors.username}
+                        value={props.values.email}
+                        onChangeText={props.handleChange("email")}
+                        onBlur={props.handleBlur("email")}
+                        // error={props.touched.email && props.errors.email}
                         errorMessage= "Lutfen uygun bir kullanici adi girin"
-                        errorStyle={{height: (props.touched.username && props.errors.username) ? 20 : 0}}
+                        errorStyle={{height: (props.touched.email && props.errors.email) ? 20 : 0}}
                         
                       />
                      
                       
-                        <Button  text="Continue" onPress={props.handleSubmit} />
+                        <Button loading={this.props.isLoadingCheck}  text="Continue" onPress={props.handleSubmit} />
                         
                        
                       
@@ -108,16 +123,29 @@ class SignUpFirstScreen extends Component<Props, {}> {
             </Formik>
           </ScrollView>
         </KeyboardAvoidingView>
+        {this.showSimpleMessage()}
+
+        <FlashMessage position="top" />
       </View>
     );
   }
 }
 
 const mapStateToProps = (state : AppState) => ({
-  username : state.signup.username
+  isFinishedCheck : state.signup.isFinishedCheck,
+  isLoadingCheck : state.signup.laodingCheck,
+  isSucceedCheck : state.signup.isSucceedCheck
+
 })
 
-export default connect(mapStateToProps,{controlUsername})(SignUpFirstScreen);
+function bindToAction(dispatch : any) {
+  return {
+    controlemail : (email : string) =>
+    dispatch(controlemail(email)) 
+  };
+}
+
+export default connect(mapStateToProps,bindToAction)(SignUpFirstScreen);
 
 
 

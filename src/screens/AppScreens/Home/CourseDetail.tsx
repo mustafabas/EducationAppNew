@@ -6,7 +6,7 @@ import {
   StyleSheet,
   Text,
   View,
-  RefreshControl,ViewProps
+  RefreshControl,ViewProps,Dimensions, TouchableHighlight
 } from 'react-native';
 
 import {
@@ -18,13 +18,15 @@ import DeviceInfo from 'react-native-device-info';
 import {NavigationScreenProps,NavigationScreenProp,NavigationScreenComponent,NavigationStackScreenOptions} from 'react-navigation'
 import { Header } from 'react-native-elements';
 
+import { TouchableOpacity } from 'react-native-gesture-handler';
+import { Icon } from 'react-native-elements'
 interface NavStateParams {
-  someValue: string
+  someValue: string;
 }
 
 export interface HomeScreenProps {
-  navigationScreen:  NavigationScreenComponent<{}>
-  navigation :  NavigationScreenProp<any,any>
+  navigationScreen:  NavigationScreenComponent<{}>;
+  navigation :  NavigationScreenProp<any,any>;
 };
 
 
@@ -58,7 +60,7 @@ DeviceInfo.hasNotch().then(hasNotch => {
   
     })
 
-export default class App extends Component<HomeScreenProps,{}> {
+export default class CourseDetail extends Component<HomeScreenProps,{}> {
 
   constructor(props : any) {
     super(props);
@@ -107,8 +109,23 @@ export default class App extends Component<HomeScreenProps,{}> {
   
   }
 
-  
+  renderCustomHeaderText(){
+    var courseItem = this.props.navigation.getParam('courseItem');
+    return (
+<Text style={{color:'#fff'}}>{courseItem.name}</Text>
 
+    );
+  }
+  renderCustomLeftButton(){
+    return (
+<Icon
+  name='ios-arrow-back'
+  type='ionicon'
+  color='#fff'
+  onPress={() => this.props.navigation.goBack()} />
+    );
+
+  }
 
   _increaseCount = (pos : number) => {
     this.setState({position : pos })
@@ -117,6 +134,7 @@ export default class App extends Component<HomeScreenProps,{}> {
 
 
   render() {
+    var courseItem = this.props.navigation.getParam('courseItem');
     // Because of content inset the scroll value will be negative on iOS so bring
     // it back to 0.
 
@@ -202,32 +220,17 @@ export default class App extends Component<HomeScreenProps,{}> {
     padding: 20,
     margin:10,
     shadowColor: '#969696',backgroundColor: 'white',
-    
+    marginTop:300,
     shadowOffset: {width: 3, height: 3 },
     shadowOpacity: .5,
-    borderRadius: 5}}>
+    borderRadius: 5,
+    elevation:3}}>
       
               <Text style={{fontSize:20}}>What will i learn</Text>
               <Text style={{fontSize:12,color:'#919191',marginTop:5}}>
-Designed web pages for commercial applications, maintaining web pages for
-companies. Utilized through knowledge of Internet Aplications, web page design and
-HTML programming to create and maintain interactive, multi-page web sites.
-Demonstrated strong skills in object-oriented programming and the use of abstract data types.
-Create databases, modifying existing databases and database management systems or directing programmers and analysts to make changes.
-Developing mobile applications with React Native and designing databases.</Text>
+    {courseItem.content}</Text>
           </View>
-          <View style={{  justifyContent: "center",
-    padding: 20,
-    marginBottom:10,
-    shadowColor: '#969696',backgroundColor: 'white',
-    marginLeft:10,marginRight:10,
-    shadowOffset: {width: 3, height: 3 },
-    shadowOpacity: .5,
-    borderRadius: 5}}>
-      
-              <Text style={{fontSize:20}}>What will i learn</Text>
-              <Text style={{fontSize:12,color:'#919191',marginTop:5}}>bir kasaba + bir açıköğretim üniversitesi mezunu olarak oy haklarımdan feragat edip kanada vatandaşlığı almayı planlıyorum. ielts puanım 7.5, yaştan da hala yırtar pozisyondayım, meslek de kabul edilebilir kategoride, onlar da express entry için uygunsunuz diyor zaten, geriye bir tek kanada hükümetinden ya da eyaletlerden birinden davet almak kalıyor. 3 sene kalıcı oturma izni sonrası vatandaşlığı da alınca orada oy kullanırım artık. zira burada kullandıklarımın bi boka yaramamasının ağırlığından kurtulmanın yanı sıra yukardaki gibi kafatası boşluğunda cerahat ihtiva eden insan artıklarından biraz uzaklaşmış olur da huzur bulurum belki.</Text>
-          </View>
+
           <Text style={[stylesNew.headText,{marginLeft:30}]}>Dersler</Text>
           <LessonSection onPress={()=>this.props.navigation.navigate('Video')} ></LessonSection>
           <LessonSection></LessonSection>
@@ -265,8 +268,8 @@ Developing mobile applications with React Native and designing databases.</Text>
           ]}
         >
           <Header backgroundColor="#d67676"
-  leftComponent={{ icon: 'menu', color: '#fff' }}
-  centerComponent={{ text: 'MY TITLE', style: { color: '#fff' } }}
+  leftComponent={this.renderCustomLeftButton()}
+  centerComponent={this.renderCustomHeaderText()}
   rightComponent={{ icon: 'home', color: '#fff' }}
 />
           {/* <Text style={styles.title}>Title</Text> */}
