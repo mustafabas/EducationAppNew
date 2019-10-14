@@ -14,7 +14,7 @@ export class Input extends Component<Props, {}> {
         {...this.props}
         style={[
           styles.inputStyle,
-          { borderBottomColor: error ? colors.accent : colors.borderColor }
+          { borderBottomColor: error ? colors.accent : colors.borderColor, },this.props.style
         ]}
       />
       

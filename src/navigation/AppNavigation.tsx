@@ -3,7 +3,8 @@ import {
   createStackNavigator,
   createAppContainer,
   createSwitchNavigator,
-  createDrawerNavigator
+  createDrawerNavigator,
+  createBottomTabNavigator
 } from "react-navigation";
 
 import { Dimensions } from "react-native";
@@ -17,19 +18,77 @@ import Login from "../screens/AuthScreens/Login";
 import AuthLoading from "../screens/AuthLoading";
 import SignUpFirstScreen from '../screens/AppScreens/SignUp/SignUpFirstScreen'
 import SignUpSecondScreen from '../screens/AppScreens/SignUp/SignUpSecondScreen'
+import CourseDetail from '../screens/AppScreens/Home/CourseDetail'
+import UserInfoScreen from "../screens/AppScreens/User/UserInfoScreen";
+import HomeScreen from '../screens/AppScreens/Home/HomeScreen'
+import VideoScreen from '../screens/AppScreens/Home/VideoScreen'
+import SignUpSecondPhoneVerificationScreen from '../screens/AppScreens/SignUp/SignUpPhoneVerificationScreen'
 const MainStack = createStackNavigator(
   {
-    Home: { screen: Home }
+    Login: { screen: Login },
+    Home: { screen: HomeScreen },
+    CourseDetail : { screen :CourseDetail },
+    UserInfo : {screen: UserInfoScreen}
   },
   {
     initialRouteName: "Home",
-    headerMode: "none"
+    // headerMode: "none",
+
   }
+);
+
+
+
+
+const EducationVideoStack = createStackNavigator({
+  Home : HomeScreen,
+  CourseDetail: { screen :CourseDetail },
+
+  Video: VideoScreen
+
+},{
+  // headerMode:'none'
+})
+
+
+
+EducationVideoStack.navigationOptions = ( navigation:any ) => {
+
+  let tabBarVisible = true;
+
+  /*let routeName = navigation.state.routes[navigation.state.index].routeName
+
+  if ( routeName == 'Video' ) {
+      tabBarVisible = false
+  }
+*/
+  return {
+      tabBarVisible,
+  }
+}
+
+
+
+
+
+
+const mainBottomTab = createBottomTabNavigator({
+  Education : EducationVideoStack,
+  UserInfo : {screen: UserInfoScreen}
+},
+{
+  initialRouteName: "Education",
+  // headerMode: "none"
+}
 );
 
 const AuthStack = createStackNavigator(
   {
-    Login: { screen: Login }
+    
+    Login: { screen: Login },
+    SignUpFirst : SignUpFirstScreen,
+    SignUpSecond : SignUpSecondScreen,
+    SignUpSecondPhoneVerification : SignUpSecondPhoneVerificationScreen
   },
   {
     initialRouteName: "Login",
@@ -37,18 +96,19 @@ const AuthStack = createStackNavigator(
   }
 );
 
-const SignUpStack = createStackNavigator(
-  { 
-    signUpFirst : {screen : SignUpFirstScreen},
-    signUpSecond : {screen : SignUpSecondScreen},
-  },
-  {
-    initialRouteName: "signUpFirst",
-    headerMode: "none"
-  }
+// const SignUpStack = createStackNavigator(
+//   { 
+//     signUpFirst : {screen : SignUpFirstScreen},
+//     signUpSecond : {screen : SignUpSecondScreen},
+
+//   },
+//   {
+//     initialRouteName: "signUpFirst",
+//     headerMode: "none"
+//   }
   
   
-)
+// )
 
 const AppStack = createDrawerNavigator(
   {
@@ -68,10 +128,15 @@ export default createAppContainer(
       AuthLoading: AuthLoading,
       AuthStack: AuthStack,
       AppStack: AppStack,
-      SignUpStack: SignUpStack
+
+      MainStack : MainStack,
+      mainBottomTab: mainBottomTab,
+      VideoScreen: VideoScreen
+      
     },
     {
-      initialRouteName: "AuthLoading"
+      initialRouteName: "AuthLoading",
+
     }
   )
 );

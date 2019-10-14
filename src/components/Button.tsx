@@ -3,7 +3,7 @@ import {
   TouchableOpacity,
   Text,
   StyleSheet,
-  TouchableOpacityProps
+  TouchableOpacityProps,ActivityIndicator
 } from "react-native";
 import { colors } from "../constants";
 
@@ -11,6 +11,8 @@ import { colors } from "../constants";
 
 interface Props extends TouchableOpacityProps {
   text: string;
+  loading : boolean;
+  IsDisabled : boolean;
 }
 
 // export class Button extends Component<Props, {}> {
@@ -26,26 +28,43 @@ interface Props extends TouchableOpacityProps {
 
 export class Button extends Component<Props, {}>{
   render() {
-    const {text} = this.props;
+    const {text, loading,IsDisabled } = this.props;
+    console.log(loading)
+    if(loading)
+    {
+      return(
+        <TouchableOpacity  {...this.props} style={[styles.buttonStyle,this.props.style]}>       
+        <ActivityIndicator/>
+      </TouchableOpacity>
+      );
+    }
+    else{
+
     return(
-      <TouchableOpacity {...this.props} style={styles.buttonStyle}>
+
+      <TouchableOpacity  {...this.props} disabled={IsDisabled} style={[styles.buttonStyle,this.props.style, {backgroundColor:IsDisabled ? '#b09295' : '#db5c6b',shadowColor : IsDisabled ? '#b09295' : '#db5c6b'}]}>
+
+       
         <Text style = {styles.buttonTextStyle}>
           {text}
 
         </Text>
+
     </TouchableOpacity>
     );
+  }
+
   }
 }
 
 const styles = StyleSheet.create({
   buttonStyle: {
-    backgroundColor: colors.buttonColor,
+    backgroundColor: '#db5c6b',
     height: 45,
     justifyContent: "center",
     alignItems: "center",
     marginVertical: 16,
-    shadowColor: colors.buttonColor,
+    shadowColor: "#db5c6b",
     shadowOffset: {width: 3, height: 3 },
     shadowOpacity: .5,
     borderRadius: 5,
@@ -53,6 +72,7 @@ const styles = StyleSheet.create({
   buttonTextStyle: {
     color: colors.containerBg,
     fontWeight: "700",
-    fontSize: 16
+    fontSize: 16,
+    fontFamily:'OpenSans-Regular'
   }
 });

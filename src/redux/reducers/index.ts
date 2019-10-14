@@ -1,36 +1,13 @@
-import { IMAGE_DATA_FETCHED, DATA_LOADING, FETCH_MORE } from "../actions/fetch";
-interface Action {
-  type: string;
-  payload: any;
-}
-interface State {
-  data: any[];
-  loading: boolean;
-}
+import {combineReducers} from 'redux';
+import LoginReducers from './LoginReducers';
+import SignUpReducers from './SignUpReducers'
+import HomeReducers from './HomeReducers';
+// import RegisterReducers from './RegisterReducers';
+// import MemberReducers from './MemberReducers';
 
-const intialState = {
-  data: [],
-  loading: false
-};
+export default combineReducers({
+    LoginResponse:LoginReducers,
+    RegisterResponse: SignUpReducers,
+    HomeReducers : HomeReducers
 
-export default (state: State = intialState, action: Action) => {
-  switch (action.type) {
-    case IMAGE_DATA_FETCHED:
-      return {
-        ...state,
-        data: action.payload
-      };
-    case FETCH_MORE:
-      return {
-        ...state,
-        data: [...state.data, ...action.payload]
-      };
-    case DATA_LOADING:
-      return {
-        ...state,
-        loading: action.payload
-      };
-    default:
-      return state;
-  }
-};
+})
